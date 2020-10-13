@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zonas_de_riesgo_app/Screens/Home_Admin/Home.dart';
@@ -43,11 +44,41 @@ class Body extends StatelessWidget {
               onChanged: (value) => _password = value,
             ),
             RoundedButton(
-              text: "LOGIN",
-              press: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return HomeScreen();
-                }));
+              text: "INGRESAR",
+              press: () async {
+                print('**************');
+                print(_email);
+                print(_password);
+                try {
+                  UserCredential userCredential = await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _email, password: _password);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return HomeScreen();
+                  }));
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    print('No user found for that email.');
+                    final snackBar = SnackBar(
+                      content: Text('Usuario inexistente.'),
+                      action: SnackBarAction(
+                        label: 'Ok',
+                        onPressed: () {},
+                      ),
+                    );
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  } else if (e.code == 'wrong-password') {
+                    print('Wrong password provided for that user.');
+                    final snackBar = SnackBar(
+                      content: Text('Contraseña incorrecta.'),
+                      action: SnackBarAction(
+                        label: 'Ok',
+                        onPressed: () {},
+                      ),
+                    );
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  }
+                }
               },
             ),
           ],

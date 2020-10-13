@@ -1,10 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:zonas_de_riesgo_app/Screens/WelcomeScreen.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
 
 Future<void> main() async {
-  /*WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();*/
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'CRUD en Flutter',
+      title: 'Zonas de Riesgo EDOMEX',
       theme: ThemeData(
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,

@@ -30,6 +30,11 @@ dependencies:
   cupertino_icons: ^0.1.3
   #Imagenes svg:
   flutter_svg: ^0.18.0
+  #Dependencia para FIrebase: 
+  firebase_database: ^4.1.0
+  firebase_core: ^0.5.0+1     # This dependency was added during initial configuration.
+  firebase_analytics: ^6.0.2  # add dependency for Google Analytics for Firebase
+  firebase_auth: ^0.18.1+2    #Dependencia para la autenticación de usuarios.
 
 dev_dependencies:
   flutter_test:

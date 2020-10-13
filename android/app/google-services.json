@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "59772685530",
+    "firebase_url": "https://zona-de-riesgos.firebaseio.com",
+    "project_id": "zona-de-riesgos",
+    "storage_bucket": "zona-de-riesgos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59772685530:android:ad056fa4cd44a41dd129e3",
+        "android_client_info": {
+          "package_name": "com.example.zonas_de_riesgo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59772685530-gskuccjgec1bfikfgmhvfhdeeo06rdtr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7x_ew3rzhRNcO8asBj54Z3ahK2qRQlT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59772685530-gskuccjgec1bfikfgmhvfhdeeo06rdtr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
