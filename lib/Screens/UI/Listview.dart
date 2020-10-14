@@ -6,6 +6,8 @@ import 'package:zonas_de_riesgo_app/Screens/components/background.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
 import 'package:zonas_de_riesgo_app/model/municipios.dart';
 
+import 'InfoMunicipio.dart';
+
 class ListViewMunicipio extends StatefulWidget {
   @override
   _ListViewMunicipioState createState() => _ListViewMunicipioState();
@@ -91,7 +93,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                               )
                             ],
                           ),
-                          //onTap: () => infoMunicipio(context, items[index]),
+                          onTap: () => verMunicipio(context, items[index]),
                         ),
                       )
                     ],
@@ -127,4 +129,12 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
           builder: (context) => ScreenMunicipio(municipio),
         ));
   }*/
+
+  void verMunicipio(BuildContext context, Municipio municipio) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InfoMunicipio(municipio),
+        ));
+  }
 }
