@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zonas_de_riesgo_app/Screens/Home_Admin/components/background.dart';
-import 'package:zonas_de_riesgo_app/Screens/UI/Listview.dart';
 import 'package:zonas_de_riesgo_app/components/rounded_button.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
 
@@ -30,11 +29,7 @@ class Body extends StatelessWidget {
               text: "Ver Municipios",
               color: kLightColor,
               textColor: Colors.black,
-              press: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ListViewMunicipio();
-                }));
-              },
+              press: () {},
             ),
             Image.asset(
               "assets/images/riesgos.jpg",

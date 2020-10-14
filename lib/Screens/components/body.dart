@@ -5,6 +5,7 @@ import 'package:zonas_de_riesgo_app/Screens/Home_Admin/Home.dart';
 import 'package:zonas_de_riesgo_app/components/rounded_button.dart';
 import 'package:zonas_de_riesgo_app/components/rounded_input_email.dart';
 import 'package:zonas_de_riesgo_app/components/rounded_password.dart';
+import 'package:zonas_de_riesgo_app/constants.dart';
 
 import 'background.dart';
 
@@ -27,7 +28,10 @@ class Body extends StatelessWidget {
           children: <Widget>[
             Text(
               "ZONA DE RIESGOS EDOMEX",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: kRedColor,
+                  fontSize: 18.0),
             ),
             SizedBox(
               height: size.height * 0.05,
