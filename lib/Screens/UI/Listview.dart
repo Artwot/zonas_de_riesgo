@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:zonas_de_riesgo_app/Screens/UI/ScreenMunicipio.dart';
 import 'package:zonas_de_riesgo_app/Screens/components/background.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
 import 'package:zonas_de_riesgo_app/model/municipios.dart';
@@ -64,7 +65,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                           title: Text(
                             '${items[index].nombre}',
                             style: TextStyle(
-                                color: kBlueColor,
+                                color: kPrimaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -73,35 +74,57 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                                 '${items[index].superficie}' +
                                 " km²",
                             style:
-                                TextStyle(color: kOrangeColor, fontSize: 18.0),
+                                TextStyle(color: kGreenColor, fontSize: 18.0),
                           ),
                           leading: Column(
                             children: <Widget>[
                               Text(
                                 "IGECEM",
                                 style: TextStyle(
-                                    color: kGreenColor, fontSize: 12.0),
+                                    color: kBlueColor, fontSize: 12.0),
                               ),
                               CircleAvatar(
-                                backgroundColor: kLightColor,
+                                backgroundColor: kBlueColor,
                                 radius: 16.0,
                                 child: Text(
                                   '${items[index].cve_igecem}',
                                   style: TextStyle(
-                                      color: kPrimaryColor, fontSize: 14.0),
+                                      color: Colors.white, fontSize: 14.0),
                                 ),
                               )
                             ],
                           ),
                           onTap: () => verMunicipio(context, items[index]),
                         ),
-                      )
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            color: kOrangeColor,
+                          ),
+                          onPressed: () =>
+                              infoMunicipio(context, items[index])),
+                      IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            color: kRedColor,
+                          ),
+                          onPressed: () =>
+                              deleteMunicipio(context, items[index], index)),
                     ],
                   )
                 ],
               );
             },
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            color: kLightColor,
+          ),
+          backgroundColor: kPrimaryColor,
+          onPressed: () => agregarMunicipio(context),
         ),
       ),
     );
@@ -114,21 +137,13 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
   }
 
   void _updateMunicipio(Event event) {
-    var oldPersona =
+    var oldMunicipio =
         items.singleWhere((persona) => persona.id == event.snapshot.key);
     setState(() {
-      items[items.indexOf(oldPersona)] =
+      items[items.indexOf(oldMunicipio)] =
           new Municipio.fromSnapShot(event.snapshot);
     });
   }
-
-  /*void infoMunicipio(BuildContext context, Municipio municipio) async {
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ScreenMunicipio(municipio),
-        ));
-  }*/
 
   void verMunicipio(BuildContext context, Municipio municipio) async {
     await Navigator.push(
@@ -136,5 +151,50 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
         MaterialPageRoute(
           builder: (context) => InfoMunicipio(municipio),
         ));
+  }
+
+  deleteMunicipio(BuildContext context, Municipio municipio, index) async {
+    await municipioRef.child(municipio.id).remove().then((_) {
+      setState(() {
+        items.removeAt(index);
+      });
+    });
+  }
+
+  infoMunicipio(BuildContext context, Municipio municipio) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ScreenMunicipio(municipio),
+        ));
+  }
+
+  agregarMunicipio(BuildContext context) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ScreenMunicipio(Municipio(
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                '',
+                ''))));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:zonas_de_riesgo_app/Screens/Maps/MapsScreen.dart';
 import 'package:zonas_de_riesgo_app/model/municipios.dart';
 
 import '../../constants.dart';
@@ -187,20 +188,25 @@ class _InfoMunicipioState extends State<InfoMunicipio> {
                         Padding(padding: EdgeInsets.only(top: 8.0)),
                         Divider(),
                         //Mapa:
-                        IconButton(
-                            icon: Icon(
-                              Icons.map,
-                              color: kBlueColor,
-                            ),
-                            onPressed: null),
+                        FlatButton(
+                          child: Image.asset('assets/images/mapas_logo.jpg'),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MapsScreen(
+                                          latitud: widget.municipio.lat,
+                                          longitud: widget.municipio.long,
+                                          nombre: widget.municipio.nombre,
+                                        )));
+                          },
+                        ),
                         new Text(
-                          "Altitud",
+                          "Localización",
                           style: TextStyle(
                               color: kPrimaryColor,
                               fontWeight: FontWeight.bold),
                         ),
-                        Padding(padding: EdgeInsets.only(top: 8.0)),
-                        Divider(),
                       ],
                     ),
                   ),

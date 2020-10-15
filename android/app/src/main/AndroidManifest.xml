@@ -9,6 +9,10 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="zonas_de_riesgo_app"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBv6JbdpfelsNItgyUpCV_ARgWH-dWkNTo"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -44,4 +48,8 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+  <!--Permisos para Google maps-->
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 </manifest>
