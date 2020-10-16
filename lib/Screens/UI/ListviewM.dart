@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 import 'package:zonas_de_riesgo_app/Screens/UI/ScreenMunicipio.dart';
 import 'package:zonas_de_riesgo_app/Screens/components/background.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
@@ -22,6 +23,7 @@ class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
   List<Municipio> items;
   StreamSubscription<Event> addMunicipio;
   StreamSubscription<Event> changeMunicipio;
+  SearchBar searchBar;
 
   @override
   void initState() {
@@ -38,6 +40,26 @@ class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
     }
   }
 
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      title: Text("Municipios"),
+      centerTitle: true,
+      backgroundColor: kPrimaryColor,
+      actions: [searchBar.getSearchAction(context)],
+    );
+  }
+
+  _ListViewMunicipiocState() {
+    searchBar = new SearchBar(
+        inBar: false,
+        setState: setState,
+        hintText: "Buscar municipio",
+        onSubmitted: (value) {
+          _buscarMunicipio(value);
+        },
+        buildDefaultAppBar: buildAppBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,11 +67,7 @@ class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
       title: 'Municipios',
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text("Municipios"),
-          centerTitle: true,
-          backgroundColor: kPrimaryColor,
-        ),
+        appBar: searchBar.build(context),
         body: Center(
           child: ListView.builder(
             itemCount: items.length,
@@ -97,7 +115,6 @@ class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
                           onTap: () => verMunicipio(context, items[index]),
                         ),
                       ),
-
                     ],
                   )
                 ],
@@ -105,9 +122,28 @@ class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
             },
           ),
         ),
-
       ),
     );
+  }
+
+  void _buscarMunicipio(String value) {
+    String val = value.toUpperCase().trim();
+    print("BÚSQUEDA---------------------------->" + val);
+    Municipio newItem;
+    for (int i = 0; i < items.length; i++) {
+      print(i);
+      print(items[i].nombre == val);
+      if (items[i].nombre == val || items[i].cve_igecem == val) {
+        newItem = items[i];
+        break;
+      }
+    }
+    setState(() {
+      print("**************************************");
+      print(newItem.poblacion);
+      items.clear();
+      items.add(newItem);
+    });
   }
 
   void _addMunicipio(Event event) {
@@ -178,4 +214,3 @@ class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
                 ''))));
   }
 }
-
