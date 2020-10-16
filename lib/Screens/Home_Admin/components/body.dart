@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:zonas_de_riesgo_app/Screens/Home_Admin/components/background.dart';
 import 'package:zonas_de_riesgo_app/Screens/UI/Listview.dart';
+import 'package:zonas_de_riesgo_app/Screens/UI/ListviewM.dart';
+import 'package:zonas_de_riesgo_app/Screens/UI/ListviewZ.dart';
+import 'package:zonas_de_riesgo_app/Screens/UI/ListviewZona.dart';
+import 'package:zonas_de_riesgo_app/Screens/components/body.dart';
 import 'package:zonas_de_riesgo_app/components/rounded_button.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
 
@@ -31,8 +35,16 @@ class Body extends StatelessWidget {
               color: kLightColor,
               textColor: Colors.black,
               press: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ListViewMunicipio();
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) {
+                    if(BodyH.usuario==1){
+                      print("Eres administrador");
+                      return ListViewMunicipio();
+                    }else{
+                      print("Eres administrador");
+                      return ListViewMunicipioc();
+                    }
+
                 }));
               },
             ),
@@ -44,7 +56,17 @@ class Body extends StatelessWidget {
               text: "Zonas de Riesgo",
               color: kPrimaryColor,
               textColor: Colors.white,
-              press: () {},
+              press: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  if(BodyH.usuario==1){
+                    print("Eres administrador");
+                    return ListViewZona();
+                  }else{
+                    print("Eres administrador");
+                    return ListViewZonac();
+                  }
+                }));
+              },
             )
           ]),
     );
