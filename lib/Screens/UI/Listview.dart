@@ -54,7 +54,6 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
         setState: setState,
         hintText: "Buscar municipio",
         onSubmitted: (value) {
-          value.toUpperCase();
           _buscarMunicipio(value);
         },
         buildDefaultAppBar: buildAppBar);
@@ -149,12 +148,22 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
   }
 
   void _buscarMunicipio(String value) {
+    String val = value.toUpperCase().trim();
+    print("BÚSQUEDA---------------------------->" +val);
+    Municipio newItem;
+    for(int i = 0; i < items.length; i++){
+        print(i);
+        print(items[i].nombre == val);
+        if(items[i].nombre == val || items[i].cve_igecem == val){
+          newItem = items[i];
+          break;
+        }
+    }
     setState(() {
+      print("**************************************");
+      print(newItem.poblacion);
       items.clear();
-      print("BÚSQUEDA---------------------------->" +value);
-      var newItem = items.singleWhere((municipio) => municipio.nombre == value);
-      print("saaaaaaaaaaaaaaaaaaa");
-      print(newItem);
+      items.add(newItem);
     });
   }
 
