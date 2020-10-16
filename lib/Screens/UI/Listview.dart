@@ -1,11 +1,11 @@
 import 'dart:async';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:zonas_de_riesgo_app/Screens/UI/ScreenMunicipio.dart';
-import 'package:zonas_de_riesgo_app/Screens/components/background.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
 import 'package:zonas_de_riesgo_app/model/municipios.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 import 'InfoMunicipio.dart';
 
@@ -22,6 +22,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
   List<Municipio> items;
   StreamSubscription<Event> addMunicipio;
   StreamSubscription<Event> changeMunicipio;
+  SearchBar searchBar;
 
   @override
   void initState() {
@@ -38,6 +39,26 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
     }
   }
 
+  AppBar buildAppBar(BuildContext context) {
+    return new AppBar(
+      title: Text("Municipios"),
+      centerTitle: true,
+      backgroundColor: kPrimaryColor,
+      actions: [searchBar.getSearchAction(context)],
+    );
+  }
+
+  _ListViewMunicipioState() {
+    searchBar = new SearchBar(
+        inBar: false,
+        setState: setState,
+        hintText: "Buscar municipio",
+        onSubmitted: (value) {
+          _buscarMunicipio(value);
+        },
+        buildDefaultAppBar: buildAppBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,11 +66,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
       title: 'Municipios',
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text("Municipios"),
-          centerTitle: true,
-          backgroundColor: kPrimaryColor,
-        ),
+        appBar: searchBar.build(context),
         body: Center(
           child: ListView.builder(
             itemCount: items.length,
@@ -98,15 +115,15 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                         ),
                       ),
                       IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            color: kOrangeColor,
+                          icon: FaIcon(
+                            FontAwesomeIcons.edit,
+                            color: kPrimaryColor,
                           ),
                           onPressed: () =>
                               infoMunicipio(context, items[index])),
                       IconButton(
-                          icon: Icon(
-                            Icons.delete,
+                          icon: FaIcon(
+                            FontAwesomeIcons.trashAlt,
                             color: kRedColor,
                           ),
                           onPressed: () =>
@@ -130,6 +147,26 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
     );
   }
 
+  void _buscarMunicipio(String value) {
+    String val = value.toUpperCase().trim();
+    print("BÚSQUEDA---------------------------->" +val);
+    Municipio newItem;
+    for(int i = 0; i < items.length; i++){
+        print(i);
+        print(items[i].nombre == val);
+        if(items[i].nombre == val || items[i].cve_igecem == val){
+          newItem = items[i];
+          break;
+        }
+    }
+    setState(() {
+      print("**************************************");
+      print(newItem.poblacion);
+      items.clear();
+      items.add(newItem);
+    });
+  }
+
   void _addMunicipio(Event event) {
     setState(() {
       items.add(new Municipio.fromSnapShot(event.snapshot));
@@ -138,7 +175,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
 
   void _updateMunicipio(Event event) {
     var oldMunicipio =
-        items.singleWhere((persona) => persona.id == event.snapshot.key);
+        items.singleWhere((municipio) => municipio.id == event.snapshot.key);
     setState(() {
       items[items.indexOf(oldMunicipio)] =
           new Municipio.fromSnapShot(event.snapshot);
