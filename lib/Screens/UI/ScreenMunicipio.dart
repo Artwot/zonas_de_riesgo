@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:zonas_de_riesgo_app/components/text_field.dart';
 import 'package:zonas_de_riesgo_app/model/municipios.dart';
 
@@ -248,8 +249,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: volcanController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.nature,
+                      icon: FaIcon(
+                        FontAwesomeIcons.mountain,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Volcán',
@@ -264,8 +265,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: altitud_volcanController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.nature,
+                      icon: FaIcon(
+                        FontAwesomeIcons.mountain,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Altitud del volcán',
@@ -280,8 +281,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: canales_riosController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.waterfall_chart,
+                      icon: FaIcon(
+                        FontAwesomeIcons.water,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Canales y rios',
@@ -297,7 +298,7 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                       icon: Icon(
-                        Icons.add_road,
+                        Icons.waterfall_chart,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Longitud',
@@ -344,8 +345,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: calidoController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.whatshot,
+                      icon: FaIcon(
+                        FontAwesomeIcons.thermometerFull,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Cálido',
@@ -392,8 +393,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: templadoController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.hot_tub,
+                      icon: FaIcon(
+                        FontAwesomeIcons.thermometerHalf,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Templado',
@@ -408,8 +409,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: semifrioController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.brightness_4,
+                      icon: FaIcon(
+                        FontAwesomeIcons.thermometerEmpty,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Semifrio',
@@ -424,8 +425,8 @@ class _ScreenMunicipioState extends State<ScreenMunicipio> {
                     controller: semifrioController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      icon: Icon(
-                        Icons.brightness_4,
+                      icon: FaIcon(
+                        FontAwesomeIcons.thermometerEmpty,
                         color: kPrimaryColor,
                       ),
                       labelText: 'Frío',
