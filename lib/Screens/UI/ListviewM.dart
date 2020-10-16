@@ -9,15 +9,15 @@ import 'package:zonas_de_riesgo_app/model/municipios.dart';
 
 import 'InfoMunicipio.dart';
 
-class ListViewMunicipio extends StatefulWidget {
+class ListViewMunicipioc extends StatefulWidget {
   @override
-  _ListViewMunicipioState createState() => _ListViewMunicipioState();
+  _ListViewMunicipiocState createState() => _ListViewMunicipiocState();
 }
 
 //Referencias a la tabla de Firebase:
 final municipioRef = FirebaseDatabase.instance.reference().child('municipio');
 
-class _ListViewMunicipioState extends State<ListViewMunicipio> {
+class _ListViewMunicipiocState extends State<ListViewMunicipioc> {
   //Lista de los municipios:
   List<Municipio> items;
   StreamSubscription<Event> addMunicipio;
@@ -97,20 +97,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                           onTap: () => verMunicipio(context, items[index]),
                         ),
                       ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            color: kOrangeColor,
-                          ),
-                          onPressed: () =>
-                              infoMunicipio(context, items[index])),
-                      IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: kRedColor,
-                          ),
-                          onPressed: () =>
-                              deleteMunicipio(context, items[index], index)),
+
                     ],
                   )
                 ],
@@ -118,14 +105,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
             },
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            color: kLightColor,
-          ),
-          backgroundColor: kPrimaryColor,
-          onPressed: () => agregarMunicipio(context),
-        ),
+
       ),
     );
   }

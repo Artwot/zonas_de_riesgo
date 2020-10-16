@@ -9,11 +9,13 @@ import 'package:zonas_de_riesgo_app/constants.dart';
 
 import 'background.dart';
 
-class Body extends StatelessWidget {
+class BodyH extends StatelessWidget {
+
+  static int usuario;
   String _email = 'halconm26@gmail.com';
   String _password = 'halcones2019';
 
-  Body({
+  BodyH({
     Key key,
   }) : super(key: key);
 
@@ -53,6 +55,14 @@ class Body extends StatelessWidget {
                 print('**************');
                 print(_email);
                 print(_password);
+                if  (_email.endsWith("admin@edomex.mx"))
+                {
+                  print("Eres administrador");
+                  usuario=1;
+                }else{
+                  print("Eres Consultor");
+                  usuario=2;
+                }
                 try {
                   UserCredential userCredential = await FirebaseAuth.instance
                       .signInWithEmailAndPassword(

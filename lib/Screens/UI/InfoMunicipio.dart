@@ -21,9 +21,10 @@ class _InfoMunicipioState extends State<InfoMunicipio> {
   void initState() {
     super.initState();
   }
-
+  
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
@@ -179,12 +180,24 @@ class _InfoMunicipioState extends State<InfoMunicipio> {
                             fontSize: 16.0,
                           ),
                         ),
+                        Padding(padding: EdgeInsets.only(top: 8.0)),
+                        Divider(),
                         new Text(
                           "Altitud",
                           style: TextStyle(
                               color: kPrimaryColor,
                               fontWeight: FontWeight.bold),
                         ),
+                        Padding(padding: EdgeInsets.only(top: 8.0)),
+                        Divider(),
+                        new Text(
+                          informacion(widget.municipio.nombre, widget.municipio.poblacion, widget.municipio.superficie),
+                          style: TextStyle(
+                              color: colort(widget.municipio.nombre),
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        
                         Padding(padding: EdgeInsets.only(top: 8.0)),
                         Divider(),
                         //Mapa:
@@ -216,4 +229,129 @@ class _InfoMunicipioState extends State<InfoMunicipio> {
           ),
         ));
   }
+}
+String informacion(String municipio, String poblacion, String superficie){
+  String adicional="";
+  municipio= municipio.toLowerCase();
+  switch(municipio) {
+    case "naucalpan": {
+      adicional="Es uno de los municipios mas industializados \n "
+          "Tambien es uno de los mas poblados con "+poblacion+" de habitantes";
+       
+    }
+    break;
+    case "naucalpan de juarez": {
+      adicional="Es uno de los municipios mas industializados \n "
+          "Tambien es uno de los mas poblados con "+poblacion+" de habitantes";
+    }
+    break;
+    case "ecatepec de morelos": {
+      adicional="Es uno de los municipios mas industializados \n "
+          "Tambien es uno de los mas poblados con "+poblacion+" de habitantes";
+    }
+    break;
+    case "tlalnepantla": {
+      adicional="Es uno de los municipios mas industializados \n "
+          "Tambien es uno de los mas poblados con "+poblacion+" de habitantes";
+    }
+    break;
+    case "ecatepec": {
+      adicional="Es uno de los municipios mas industializados \n "
+          "Tambien es uno de los mas poblados con "+poblacion+" de habitantes";
+
+    }
+    break;
+    case "toluca": {
+      adicional="Es uno de los mas poblados con "+poblacion+" de habitantes";
+
+    }
+    break;
+    case "toluca": {
+      adicional="Es uno de los mas poblados con "+poblacion+" de habitantes";
+
+    }
+    break;
+    case "netzahualcoyotl": {
+      adicional="Es uno de los mas poblados con "+poblacion+" de habitantes";
+
+    }
+    break;
+    case "tlatlaya": {
+      adicional="Es uno de los mas extensos con "+superficie+" km2";
+
+    }
+    break;
+
+    case "luvianos": {
+      adicional="Es uno de los mas extensos con "+superficie+" km2";
+
+    }
+    break;
+    case "tejupilco": {
+      adicional="Es uno de los mas extensos con "+superficie+" km2";
+
+    }
+    break;
+  }
+  return adicional;
+}
+
+Color colort(String municipio){
+  Color adicional=kPrimaryColor;
+  municipio= municipio.toLowerCase();
+  switch(municipio) {
+    case "naucalpan": {
+      adicional= Colors.blue;
+
+    }
+    break;
+    case "naucalpan de juarez": {
+      adicional= Colors.blue;
+    }
+    break;
+    case "ecatepec de morelos": {
+      adicional= Colors.blue;
+    }
+    break;
+    case "ecatepec": {
+      adicional= Colors.blue;
+    }
+    break;
+    case "tlalnepantla": {
+      adicional= Colors.blue;
+    }
+    break;
+   
+    case "toluca": {
+      adicional= Colors.lime;
+
+    }
+    break;
+    
+    break;
+    case "netzahualcoyotl": {
+
+      adicional= Colors.lime;
+
+
+    }
+    break;
+    case "tlatlaya": {
+    adicional=Colors.pinkAccent ;
+
+    }
+    break;
+
+    case "luvianos": {
+    adicional=Colors.pinkAccent ;
+
+    }
+    break;
+    case "tejupilco": {
+    adicional=Colors.pinkAccent ;
+
+    }
+    break;
+  }
+  return adicional;
 }

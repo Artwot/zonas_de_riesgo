@@ -2,39 +2,39 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:zonas_de_riesgo_app/Screens/UI/ScreenMunicipio.dart';
+import 'package:zonas_de_riesgo_app/Screens/UI/ScreenZona.dart';
 import 'package:zonas_de_riesgo_app/Screens/components/background.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
-import 'package:zonas_de_riesgo_app/model/municipios.dart';
+import 'package:zonas_de_riesgo_app/model/zonas_riesgo.dart';
+import 'InfoZona.dart';
 
-import 'InfoMunicipio.dart';
+class ListViewZona extends StatefulWidget {
 
-class ListViewMunicipio extends StatefulWidget {
-  @override
-  _ListViewMunicipioState createState() => _ListViewMunicipioState();
+  _ListViewZonaState createState() => _ListViewZonaState();
+
+
+
 }
 
-//Referencias a la tabla de Firebase:
-final municipioRef = FirebaseDatabase.instance.reference().child('municipio');
+final zonaRef = FirebaseDatabase.instance.reference().child('zonas_riesgo');
 
-class _ListViewMunicipioState extends State<ListViewMunicipio> {
-  //Lista de los municipios:
-  List<Municipio> items;
-  StreamSubscription<Event> addMunicipio;
-  StreamSubscription<Event> changeMunicipio;
-
+class _ListViewZonaState extends State<ListViewZona> {
+  //Lista de las zonas:
+  List<Zonas_riesgo> items;
+  StreamSubscription<Event> addZona;
+  StreamSubscription<Event> changeZona;
   @override
   void initState() {
     super.initState();
     items = new List();
-    addMunicipio = municipioRef.onChildAdded.listen(_addMunicipio);
-    changeMunicipio = municipioRef.onChildChanged.listen(_updateMunicipio);
+    addZona = zonaRef.onChildAdded.listen(_addZona);
+    changeZona = zonaRef.onChildChanged.listen(_updateZona);
 
     @override
     void dispose() {
       super.dispose();
-      addMunicipio.cancel();
-      changeMunicipio.cancel();
+      addZona.cancel();
+      changeZona.cancel();
     }
   }
 
@@ -42,11 +42,11 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Municipios',
+      title: 'Zonas de Riesgo',
       home: Scaffold(
         resizeToAvoidBottomPadding: false,
         appBar: AppBar(
-          title: Text("Municipios"),
+          title: Text("Zonas de riesgo"),
           centerTitle: true,
           backgroundColor: kPrimaryColor,
         ),
@@ -56,25 +56,18 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
             padding: EdgeInsets.only(top: 12.0),
             itemBuilder: (context, index) {
               return Column(
-                children: <Widget>[
+                children:  <Widget>[
                   Divider(height: 7.0),
                   Row(
-                    children: <Widget>[
+                    children: <Widget> [
                       Expanded(
                         child: ListTile(
                           title: Text(
-                            '${items[index].nombre}',
+                            '${items[index].tipo_desastre}',
                             style: TextStyle(
                                 color: kPrimaryColor,
                                 fontSize: 18.0,
                                 fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            "Superficie: " +
-                                '${items[index].superficie}' +
-                                " km²",
-                            style:
-                                TextStyle(color: kGreenColor, fontSize: 18.0),
                           ),
                           leading: Column(
                             children: <Widget>[
@@ -94,7 +87,7 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                               )
                             ],
                           ),
-                          onTap: () => verMunicipio(context, items[index]),
+                          onTap: () => verZona(context, items[index]),
                         ),
                       ),
                       IconButton(
@@ -103,19 +96,19 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
                             color: kOrangeColor,
                           ),
                           onPressed: () =>
-                              infoMunicipio(context, items[index])),
+                              infoZona(context, items[index])),
                       IconButton(
                           icon: Icon(
                             Icons.delete,
                             color: kRedColor,
                           ),
                           onPressed: () =>
-                              deleteMunicipio(context, items[index], index)),
+                              deleteZona(context, items[index], index)),
                     ],
                   )
                 ],
               );
-            },
+            }
           ),
         ),
         floatingActionButton: FloatingActionButton(
@@ -124,78 +117,61 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
             color: kLightColor,
           ),
           backgroundColor: kPrimaryColor,
-          onPressed: () => agregarMunicipio(context),
+          onPressed: () => agregarZona(context),
         ),
       ),
     );
   }
 
-  void _addMunicipio(Event event) {
+  void _addZona(Event event) {
     setState(() {
-      items.add(new Municipio.fromSnapShot(event.snapshot));
+      items.add(new Zonas_riesgo.fromSnapShot(event.snapshot));
     });
   }
 
-  void _updateMunicipio(Event event) {
+  void _updateZona(Event event) {
     var oldMunicipio =
-        items.singleWhere((persona) => persona.id == event.snapshot.key);
+    items.singleWhere((persona) => persona.id == event.snapshot.key);
     setState(() {
       items[items.indexOf(oldMunicipio)] =
-          new Municipio.fromSnapShot(event.snapshot);
+      new Zonas_riesgo.fromSnapShot(event.snapshot);
     });
   }
 
-  void verMunicipio(BuildContext context, Municipio municipio) async {
+  void verZona(BuildContext context, Zonas_riesgo zonas_riesgo) async {
     await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => InfoMunicipio(municipio),
+          builder: (context) => InfoZona(zonas_riesgo),
         ));
   }
 
-  deleteMunicipio(BuildContext context, Municipio municipio, index) async {
-    await municipioRef.child(municipio.id).remove().then((_) {
+  deleteZona(BuildContext context, Zonas_riesgo zonas_riesgo, index) async {
+    await zonaRef.child(zonas_riesgo.id).remove().then((_) {
       setState(() {
         items.removeAt(index);
       });
     });
   }
 
-  infoMunicipio(BuildContext context, Municipio municipio) async {
+  infoZona(BuildContext context, Zonas_riesgo zonas_riesgo) async {
     await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ScreenMunicipio(municipio),
+          builder: (context) => ScreenZona(zonas_riesgo),
         ));
   }
 
-  agregarMunicipio(BuildContext context) async {
+  agregarZona(BuildContext context) async {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ScreenMunicipio(Municipio(
+            builder: (context) => ScreenZona(Zonas_riesgo(
                 '',
                 '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                ''))));
+                '')
+            )
+        )
+    );
   }
 }
-
