@@ -63,7 +63,14 @@ class _ListViewZonacState extends State<ListViewZonac> {
                       Expanded(
                         child: ListTile(
                           title: Text(
-                            "Tipo de desastre"+'${items[index].tipo_desastre}',
+                            '${items[index].nombre}',
+                            style: TextStyle(
+                                color: kPrimaryColor,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            '${items[index].tipo_desastre}',
                             style: TextStyle(
                                 color: kPrimaryColor,
                                 fontSize: 18.0,
@@ -147,6 +154,7 @@ class _ListViewZonacState extends State<ListViewZonac> {
         context,
         MaterialPageRoute(
             builder: (context) => ScreenZona(Zonas_riesgo(
+                '',
                 '',
                 '',
                 '')

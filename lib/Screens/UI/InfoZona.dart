@@ -21,6 +21,7 @@ class _InfoZonaState extends State<InfoZona> {
   }
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
    return Scaffold(
      appBar: AppBar(
        title: Text('Información'),
@@ -39,6 +40,21 @@ class _InfoZonaState extends State<InfoZona> {
                    child: Center(
                      child: Column(
                        children:  <Widget> [
+                         new Text(
+                           "${widget.zonas_riesgo.nombre}",
+                           style: TextStyle(
+                             fontWeight: FontWeight.normal,
+                             fontSize: 16.0,
+                           ),
+                         ),
+                         new Text(
+                           "Municipio",
+                           style: TextStyle(
+                               color: kPrimaryColor,
+                               fontWeight: FontWeight.bold),
+                         ),
+                         Padding(padding: EdgeInsets.only(top: 8.0)),
+                         Divider(),
                          new Text(
                            "${widget.zonas_riesgo.cve_igecem}",
                            style: TextStyle(
@@ -69,6 +85,10 @@ class _InfoZonaState extends State<InfoZona> {
                          ),
                          Padding(padding: EdgeInsets.only(top: 8.0)),
                          Divider(),
+                         SizedBox(
+                           height: size.height * 0.05,
+                         ),
+                         Image.asset("assets/images/mapa.jpeg", width: size.width),
                        ],
                      ),
                    ),
