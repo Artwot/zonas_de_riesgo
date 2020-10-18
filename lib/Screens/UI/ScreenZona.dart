@@ -17,11 +17,13 @@ class _ScreenZonaState extends State<ScreenZona>
 {
   Zonas_riesgo zonas_riesgo;
   List<Zonas_riesgo> items;
-
+  TextEditingController  nombreController;
   TextEditingController  cve_igecemController;
   TextEditingController  tipo_desastreController;
   void initState() {
     super.initState();
+    nombreController =
+    new TextEditingController(text: widget.zonas_riesgo.nombre);
     cve_igecemController =
     new TextEditingController(text: widget.zonas_riesgo.cve_igecem);
     tipo_desastreController =
@@ -41,6 +43,22 @@ class _ScreenZonaState extends State<ScreenZona>
     Center(
         child: Column(
           children: <Widget> [
+            TextFieldContainer(
+              child: TextField(
+                controller: nombreController,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.confirmation_num,
+                    color: kPrimaryColor,
+                  ),
+                  labelText: 'Municipio',
+                  hintText: 'Municipio',
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            //clave igecem
             TextFieldContainer(
               child: TextField(
                 controller: cve_igecemController,
@@ -84,12 +102,14 @@ class _ScreenZonaState extends State<ScreenZona>
                    onPressed: () {
                     if (widget.zonas_riesgo.id != null) {
                          zonaRef.child(widget.zonas_riesgo.id).set({
+                           'nombre': nombreController.text,
                          'cve_igecem': cve_igecemController.text,
                          'tipo_desastre': tipo_desastreController.text
                          }).then((_) => {Navigator.pop(context)});
                     } else {
                      zonaRef.push().set({
-                     'cve_igecem': cve_igecemController.text,
+                       'nombre': nombreController.text,
+                       'cve_igecem': cve_igecemController.text,
                      'tipo_desastre': tipo_desastreController.text
                     }).then((_) => {Navigator.pop(context)});
                     }
