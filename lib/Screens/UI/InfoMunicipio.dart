@@ -38,7 +38,7 @@ class _InfoMunicipioState extends State<InfoMunicipio> {
             padding: EdgeInsets.only(top: 12.0),
             itemBuilder: (context, index) {
               return Container(
-                height: 1650.0,
+                height: 1900.0,
                 padding: const EdgeInsets.all(20.0),
                 child: Card(
                   child: Center(
@@ -188,6 +188,15 @@ class _InfoMunicipioState extends State<InfoMunicipio> {
                         ),
                         Padding(padding: EdgeInsets.only(top: 8.0)),
                         Divider(),
+                        new Text(
+                          informacion(
+                              widget.municipio.nombre,
+                              widget.municipio.poblacion,
+                              widget.municipio.superficie),
+                          style: TextStyle(
+                              color: colort(widget.municipio.nombre),
+                              fontWeight: FontWeight.bold),
+                        ),
                         //Mapa:
                         FlatButton(
                           child: Image.asset('assets/images/mapas_logo.jpg'),

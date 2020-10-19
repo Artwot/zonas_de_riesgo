@@ -168,6 +168,6 @@ class _ListViewZonaState extends State<ListViewZona> {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ScreenZona(Zonas_riesgo('', '', '', ''))));
+            builder: (context) => ScreenZona(Zonas_riesgo(null, '', '', ''))));
   }
 }

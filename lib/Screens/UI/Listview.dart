@@ -149,15 +149,15 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
 
   void _buscarMunicipio(String value) {
     String val = value.toUpperCase().trim();
-    print("BÚSQUEDA---------------------------->" +val);
+    print("BÚSQUEDA---------------------------->" + val);
     Municipio newItem;
-    for(int i = 0; i < items.length; i++){
-        print(i);
-        print(items[i].nombre == val);
-        if(items[i].nombre == val || items[i].cve_igecem == val){
-          newItem = items[i];
-          break;
-        }
+    for (int i = 0; i < items.length; i++) {
+      print(i);
+      print(items[i].nombre == val);
+      if (items[i].nombre == val || items[i].cve_igecem == val) {
+        newItem = items[i];
+        break;
+      }
     }
     setState(() {
       print("**************************************");
@@ -208,31 +208,13 @@ class _ListViewMunicipioState extends State<ListViewMunicipio> {
 
   agregarMunicipio(BuildContext context) async {
     await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ScreenMunicipio(Municipio(
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                '',
-                ''))));
+      context,
+      MaterialPageRoute(
+        builder: (context) => ScreenMunicipio(
+          Municipio(null, '', '', '', '', '', '', '', '', '', '', '', '', '',
+              '', '', '', '', '', '', '', ''),
+        ),
+      ),
+    );
   }
 }
-
