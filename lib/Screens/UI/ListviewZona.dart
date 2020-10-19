@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:zonas_de_riesgo_app/Screens/UI/ScreenZona.dart';
 import 'package:zonas_de_riesgo_app/Screens/components/background.dart';
 import 'package:zonas_de_riesgo_app/constants.dart';
@@ -9,11 +10,7 @@ import 'package:zonas_de_riesgo_app/model/zonas_riesgo.dart';
 import 'InfoZona.dart';
 
 class ListViewZona extends StatefulWidget {
-
   _ListViewZonaState createState() => _ListViewZonaState();
-
-
-
 }
 
 final zonaRef = FirebaseDatabase.instance.reference().child('zonas_riesgo');
@@ -52,71 +49,69 @@ class _ListViewZonaState extends State<ListViewZona> {
         ),
         body: Center(
           child: ListView.builder(
-            itemCount: items.length,
-            padding: EdgeInsets.only(top: 12.0),
-            itemBuilder: (context, index) {
-              return Column(
-                children:  <Widget>[
-                  Divider(height: 7.0),
-                  Row(
-                    children: <Widget> [
-                      Expanded(
-                        child: ListTile(
-                          title: Text(
-                            '${items[index].nombre}',
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            '${items[index].tipo_desastre}',
-                            style: TextStyle(
-                                color: kPrimaryColor,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          leading: Column(
-                            children: <Widget>[
-                              Text(
-                                "IGECEM",
-                                style: TextStyle(
-                                    color: kBlueColor, fontSize: 12.0),
-                              ),
-                              CircleAvatar(
-                                backgroundColor: kBlueColor,
-                                radius: 16.0,
-                                child: Text(
-                                  '${items[index].cve_igecem}',
+              itemCount: items.length,
+              padding: EdgeInsets.only(top: 12.0),
+              itemBuilder: (context, index) {
+                return Column(
+                  children: <Widget>[
+                    Divider(height: 7.0),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: ListTile(
+                            title: Text(
+                              '${items[index].nombre}',
+                              style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              '${items[index].tipo_desastre}',
+                              style: TextStyle(
+                                  color: kYellowColor,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            leading: Column(
+                              children: <Widget>[
+                                Text(
+                                  "IGECEM",
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 14.0),
+                                      color: kBlueColor, fontSize: 12.0),
                                 ),
-                              )
-                            ],
+                                CircleAvatar(
+                                  backgroundColor: kBlueColor,
+                                  radius: 16.0,
+                                  child: Text(
+                                    '${items[index].cve_igecem}',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14.0),
+                                  ),
+                                )
+                              ],
+                            ),
+                            onTap: () => verZona(context, items[index]),
                           ),
-                          onTap: () => verZona(context, items[index]),
                         ),
-                      ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.edit,
-                            color: kOrangeColor,
-                          ),
-                          onPressed: () =>
-                              infoZona(context, items[index])),
-                      IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: kRedColor,
-                          ),
-                          onPressed: () =>
-                              deleteZona(context, items[index], index)),
-                    ],
-                  )
-                ],
-              );
-            }
-          ),
+                        IconButton(
+                            icon: FaIcon(
+                              FontAwesomeIcons.edit,
+                              color: kPrimaryColor,
+                            ),
+                            onPressed: () => infoZona(context, items[index])),
+                        IconButton(
+                            icon: FaIcon(
+                              FontAwesomeIcons.trashAlt,
+                              color: kRedColor,
+                            ),
+                            onPressed: () =>
+                                deleteZona(context, items[index], index)),
+                      ],
+                    )
+                  ],
+                );
+              }),
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(
@@ -138,10 +133,10 @@ class _ListViewZonaState extends State<ListViewZona> {
 
   void _updateZona(Event event) {
     var oldMunicipio =
-    items.singleWhere((persona) => persona.id == event.snapshot.key);
+        items.singleWhere((persona) => persona.id == event.snapshot.key);
     setState(() {
       items[items.indexOf(oldMunicipio)] =
-      new Zonas_riesgo.fromSnapShot(event.snapshot);
+          new Zonas_riesgo.fromSnapShot(event.snapshot);
     });
   }
 
@@ -173,13 +168,6 @@ class _ListViewZonaState extends State<ListViewZona> {
     await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ScreenZona(Zonas_riesgo(
-                '',
-                '',
-                '',
-                '')
-            )
-        )
-    );
+            builder: (context) => ScreenZona(Zonas_riesgo('', '', '', ''))));
   }
 }
